@@ -8,12 +8,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Poruductos App',
       initialRoute: 'login',
       routes: {
         'login': (_) => LoginScreen(),
         'home': (_) => HomeScreen(),
       },
+      theme:
+          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.grey[300]),
     );
   }
 }
