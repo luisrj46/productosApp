@@ -87,7 +87,7 @@ class _PriceTag extends StatelessWidget {
       width: 100,
       height: 70,
       alignment: Alignment.center,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.indigo,
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(25), bottomLeft: Radius.circular(25))),
@@ -142,16 +142,13 @@ class _BackgroundImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(25),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 30),
-        child: Container(
-          width: double.infinity,
-          height: 400,
-          child: const FadeInImage(
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            image: NetworkImage('https://picsum.photos/300/300'),
-            fit: BoxFit.cover,
-          ),
+      child: Container(
+        width: double.infinity,
+        height: 400,
+        child: const FadeInImage(
+          placeholder: AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage('https://picsum.photos/300/300'),
+          fit: BoxFit.cover,
         ),
       ),
     );
