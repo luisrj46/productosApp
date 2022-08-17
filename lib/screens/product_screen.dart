@@ -61,30 +61,31 @@ class _ProductForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
-            child: Column(
-          children: [
-            SizedBox(height: 10),
-            TextFormField(
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Nombre del producto', labelText: 'Nombre'),
-            ),
-            SizedBox(height: 30),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: '\$150', labelText: 'Precio'),
-            ),
-            SizedBox(height: 30),
-            SwitchListTile.adaptive(
-              title: const Text('Disponible'),
-              value: true,
-              onChanged: (value) {
-                //TODO:guardar el valor del swichet
-              },
-            ),
-            SizedBox(height: 30),
-          ],
-        )),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              TextFormField(
+                decoration: InputDecorations.authInputDecoration(
+                    hintText: 'Nombre del producto', labelText: 'Nombre'),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecorations.authInputDecoration(
+                    hintText: '\$150', labelText: 'Precio'),
+              ),
+              const SizedBox(height: 30),
+              SwitchListTile.adaptive(
+                title: const Text('Disponible'),
+                value: true,
+                onChanged: (value) {
+                  //TODO:guardar el valor del swichet
+                },
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        ),
       ),
     );
   }
