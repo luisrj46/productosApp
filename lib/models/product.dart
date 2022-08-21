@@ -5,6 +5,7 @@ class Product {
     required this.available,
     required this.name,
     this.picture,
+    this.id,
     required this.price,
   });
 

@@ -13,11 +13,12 @@ class ProductsServices extends ChangeNotifier {
   bool isloading = true;
 
   ProductsServices() {
-    print("object");
     loadProducts();
   }
   //TODO
-  Future loadProducts() async {
+  Future<List<Product>> loadProducts() async {
+    isloading = true;
+    notifyListeners();
     final url = Uri.https(_baseUrl, 'Product.json');
     final resp = await http.get(url);
 
@@ -27,8 +28,11 @@ class ProductsServices extends ChangeNotifier {
       final tempProduc = Product.fromMap(value);
       tempProduc.id = key;
       products.add(tempProduc);
-      print(products[0].name);
     });
+
+    isloading = false;
+    notifyListeners();
+    return products;
   }
 
   //TODO: hacer fecht de productos

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/models/models.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  final Product product;
+
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,15 +13,19 @@ class ProductCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(top: 30, bottom: 50),
         width: double.infinity,
-        height: 400,
         decoration: _cardBroders(),
         child: Stack(
           alignment: Alignment.bottomLeft,
-          children: const [
-            _BackgroundImage(),
-            _ProductDetails(),
-            Positioned(top: 0, right: 0, child: _PriceTag()),
-            Positioned(top: 0, left: 0, child: _NotAvailable()),
+          children: [
+            _BackgroundImage(url: product.picture),
+            _ProductDetails(
+              title: product.name,
+              subtitle: product.id!,
+            ),
+            Positioned(
+                top: 0, right: 0, child: _PriceTag(price: product.price)),
+            if (product.available)
+              Positioned(top: 0, left: 0, child: _NotAvailable()),
           ],
         ),
       ),
@@ -67,19 +74,21 @@ class _NotAvailable extends StatelessWidget {
 }
 
 class _PriceTag extends StatelessWidget {
+  final double price;
   const _PriceTag({
     Key? key,
+    required this.price,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: const FittedBox(
+      child: FittedBox(
         fit: BoxFit.contain,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            '\$103.35',
+            '\$$price',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
@@ -96,8 +105,12 @@ class _PriceTag extends StatelessWidget {
 }
 
 class _ProductDetails extends StatelessWidget {
+  final String title;
+  final String subtitle;
   const _ProductDetails({
     Key? key,
+    required this.title,
+    required this.subtitle,
   }) : super(key: key);
 
   @override
@@ -108,18 +121,25 @@ class _ProductDetails extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: _buildBoxDecoration(),
         width: double.infinity,
-        height: 50,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'Disco duro',
-              style: TextStyle(
+              title,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-            )
+            ),
+            if (subtitle != null)
+              Text(
+                subtitle,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              )
           ],
         ),
       ),
@@ -134,8 +154,11 @@ class _ProductDetails extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
+  final String? url;
+
   const _BackgroundImage({
     Key? key,
+    this.url,
   }) : super(key: key);
 
   @override
