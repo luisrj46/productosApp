@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:productos_app/providers/providers.dart';
 import 'package:provider/provider.dart';
 import 'package:productos_app/services/services.dart';
@@ -36,17 +37,21 @@ class _ProductScreenBody extends StatelessWidget {
                   top: 60,
                   left: 20,
                   child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: Icon(Icons.arrow_back_ios_new)),
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.arrow_back_ios_new),
+                    color: Colors.white,
+                  ),
                 ),
                 Positioned(
                   top: 60,
                   right: 20,
                   child: IconButton(
-                      onPressed: () {
-                        //TODO funciona de la camara
-                      },
-                      icon: Icon(Icons.camera_alt_outlined)),
+                    onPressed: () {
+                      //TODO funciona de la camara
+                    },
+                    icon: const Icon(Icons.camera_alt_outlined),
+                    color: Colors.white,
+                  ),
                 )
               ],
             ),
@@ -100,6 +105,10 @@ class _ProductForm extends StatelessWidget {
               const SizedBox(height: 30),
               TextFormField(
                 initialValue: '${product?.price}',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      RegExp(r'^(\d+)?\.?\d{0,2}'))
+                ],
                 onChanged: (value) {
                   if (double.tryParse(value) == null) {
                     product?.price = 0;
@@ -113,12 +122,9 @@ class _ProductForm extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               SwitchListTile.adaptive(
-                title: const Text('Disponible'),
-                value: product!.available,
-                onChanged: (value) {
-                  //TODO:guardar el valor del swichet
-                },
-              ),
+                  title: const Text('Disponible'),
+                  value: product!.available,
+                  onChanged: productForm.updateAvailability),
               const SizedBox(height: 30),
             ],
           ),
