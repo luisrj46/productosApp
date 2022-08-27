@@ -7,7 +7,6 @@ class ProductFormProvider extends ChangeNotifier {
   ProductFormProvider(this.product);
 
   updateAvailability(bool value) {
-    print(value);
     product!.available = value;
     notifyListeners();
   }
@@ -15,6 +14,9 @@ class ProductFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool isValidForm() {
+    print(product!.name);
+    print(product!.available);
+    print(product!.price);
     return formKey.currentState?.validate() ?? false;
   }
 }

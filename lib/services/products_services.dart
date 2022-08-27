@@ -12,6 +12,7 @@ class ProductsServices extends ChangeNotifier {
   Product? productSelect;
 
   bool isloading = true;
+  bool isSaving = false;
 
   ProductsServices() {
     loadProducts();
@@ -36,5 +37,28 @@ class ProductsServices extends ChangeNotifier {
     return products;
   }
 
-  //TODO: hacer fecht de productos
+  Future saveOrCreateProduct(Product product) async {
+    isSaving = true;
+    notifyListeners();
+
+    if (product.id == null) {
+      //producto nuevo
+    } else {
+      // actualizar producto
+      await updateProduct(product);
+    }
+
+    isSaving = false;
+    notifyListeners();
+  }
+
+  Future<String> updateProduct(Product product) async {
+    final url = Uri.https(_baseUrl, 'Product/${product.id}.json');
+    final resp = await http.put(url, body: product.toJson());
+    final decodeData = resp.body;
+
+    print(decodeData);
+
+    return product.id!;
+  }
 }
