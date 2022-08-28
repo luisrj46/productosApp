@@ -67,6 +67,7 @@ class _ProductScreenBody extends StatelessWidget {
         onPressed: () async {
           if (!productForm.isValidForm()) return;
           await productService.saveOrCreateProduct(productForm.product!);
+          Navigator.of(context).pop();
         },
       ),
     );
