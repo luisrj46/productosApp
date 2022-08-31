@@ -53,12 +53,9 @@ class _ProductScreenBody extends StatelessWidget {
                       PickedFile? pickedFile = await _picker.getImage(
                           source: ImageSource.camera, imageQuality: 100);
 
-                      if (pickedFile == null) {
-                        print("No se selecciono nada");
-                        return;
-                      }
-
-                      print("tenemos imagen");
+                      if (pickedFile == null) return;
+                      productService
+                          .updateSelectedProductImage(pickedFile.path);
                     },
                     icon: const Icon(Icons.camera_alt_outlined),
                     color: Colors.white,

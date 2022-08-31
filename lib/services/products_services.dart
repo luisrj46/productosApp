@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:productos_app/models/models.dart';
@@ -13,6 +14,8 @@ class ProductsServices extends ChangeNotifier {
 
   bool isloading = true;
   bool isSaving = false;
+
+  File? newPictureFile;
 
   ProductsServices() {
     loadProducts();
@@ -73,5 +76,12 @@ class ProductsServices extends ChangeNotifier {
     products.add(product);
     print(product);
     return product.id!;
+  }
+
+  void updateSelectedProductImage(String path) {
+    productSelect!.picture = path;
+    newPictureFile = File.fromUri(Uri(path: path));
+
+    notifyListeners();
   }
 }
