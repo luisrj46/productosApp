@@ -73,6 +73,10 @@ class _ProductScreenBody extends StatelessWidget {
         child: Icon(Icons.save_alt_outlined),
         onPressed: () async {
           if (!productForm.isValidForm()) return;
+          final String? imageUrl = await productService.uploadImage();
+
+          print(imageUrl);
+
           await productService.saveOrCreateProduct(productForm.product!);
           Navigator.of(context).pop();
         },
