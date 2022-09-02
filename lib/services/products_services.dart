@@ -86,10 +86,7 @@ class ProductsServices extends ChangeNotifier {
   }
 
   Future<String?> uploadImage() async {
-    if (newPictureFile == null) {
-      print('null imagen');
-      return null;
-    }
+    if (newPictureFile == null) return null;
 
     isSaving = true;
     notifyListeners();
@@ -119,7 +116,5 @@ class ProductsServices extends ChangeNotifier {
     final decodedData = json.decode(resp.body);
 
     return decodedData['secure_url'];
-
-    print(resp.body);
   }
 }
