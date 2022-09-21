@@ -8,12 +8,13 @@ class AuthService extends ChangeNotifier {
   final String _baseUrl = 'identitytoolkit.googleapis.com';
   final String _firbaseToken = 'AIzaSyB0gEQzW1gE4qMM-c-5pvn5gw3xxrmBuRQ';
 
-  final storage = new FlutterSecureStorage();
+  final storage = FlutterSecureStorage();
   // si regresa null es que todo bien
   Future<String?> createUser(String email, String password) async {
     final Map<String, dynamic> authData = {
       'email': email,
-      'password': password
+      'password': password,
+      'returnSecureToken': true
     };
 
     final url =
@@ -37,7 +38,8 @@ class AuthService extends ChangeNotifier {
   Future<String?> login(String email, String password) async {
     final Map<String, dynamic> authData = {
       'email': email,
-      'password': password
+      'password': password,
+      'returnSecureToken': true
     };
 
     final url = Uri.https(
